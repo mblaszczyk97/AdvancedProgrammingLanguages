@@ -7,7 +7,7 @@ Projects:
 2 -  
 Krok 1:  
   
-Wyciągnięcie linii zmieniającej wartoś **quality** przedmiotu w sklepie:  
+Wyciągnięcie linii zmieniającej wartość **quality** przedmiotu w sklepie:  
 zamiana linii:  
 ```python
        	item.quality = item.quality - 1
@@ -29,3 +29,4 @@ class check():
         item.quality = item.quality + by;
         return item
 ```
+oraz dodanie testu - **test_items_qulity_decreases_as_name_suggest** sprawdzającego czy wartość **quality** jest w odpowiedni sposób zmieniana w czasie:  
