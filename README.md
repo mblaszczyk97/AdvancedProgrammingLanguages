@@ -4,7 +4,7 @@ Projects:
 1 - Gilded Rose - only add to code:  
 	Adding new functionality to badly coded eshop 
    
-Krok 1:  
+**Krok 1:**  
   
 Wyciągnięcie linii zmieniającej wartość **quality** przedmiotu w sklepie:  
 zamiana liniach:  
@@ -25,7 +25,7 @@ na
   
 	check.updateSellin(item, -1)
 ```
-za pomocą dodanej metod:  
+za pomocą dodanych metod:  
 ```python
 class check():    
 	def updateQuality(item, by):
@@ -36,9 +36,9 @@ class check():
         	item.sell_in = item.sell_in + by;
         	return item
 ```
-oraz dodanie testu - **test_items_qulity_decreases_as_name_suggest** sprawdzającego czy wartość **quality** jest w odpowiedni sposób zmieniana w czasie  
+oraz dodanie testu - **test_items_quality_decreases_as_name_suggest** sprawdzającego czy wartość **quality** jest w odpowiedni sposób zmieniana w czasie  
 
-Krok 2: 
+**Krok 2:**  
   
 Stworzenie metod **boolowskich** sprawdzających warunki w "if-ach":  
 zmiana w liniach:  
@@ -51,7 +51,7 @@ na
 	check.is_sulfuras(item) 
 	check.is_aged_brie(item)
 ```
-za pomocą dodanej metod:  
+za pomocą dodanych metod:  
 ```python
 class check():    
 	def is_sulfuras(item):
