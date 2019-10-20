@@ -59,7 +59,7 @@ class check():
             return True
 
     def is_normal(item):
-        if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" and item.name.lower().find("conjured") == -1:#1
+        if item.name.lower().find("conjured") == -1:#1
                 if item.quality > 0:
                     if not check.is_sulfuras(item):
                         return True
@@ -89,10 +89,6 @@ class check():
             if item.sell_in < 0:
                 item.quality = 0
 
-    def sub_conjured(item, subber, quality):
-        if item.quality > quality and item.name.lower().find("conjured") != -1:#2
-            check.updateQuality(item, subber)
-
 class GildedRose(object):
 
     def __init__(self, items):
@@ -119,7 +115,7 @@ class GildedRose(object):
 Przebieg zmian:  
   
    
-**Krok 1:**  
+<span style="color:blue">**Krok 1:**</span>
   
 Wyciągnięcie linii zmieniającej wartość **quality** przedmiotu w sklepie:  
 zamiana liniach:  
@@ -287,7 +283,7 @@ oraz dodanie testu - **test_add_not_normal** sprawdzającego czy wartość zmian
 **Krok 6:**  
   
 Zmiana spsobu odejmowania wartości **sell_in** tak aby była ona odejmowana dla wszystkich po obrocie pętli oraz  
-zamienienie podwojenia zmian wartości **quality* gdy *sell_in* jest mniejsza od 0 tak aby działo to się od razu w 
+zamienienie podwojenia zmian wartości **quality** gdy **sell_in** jest mniejsza od 0 tak aby działo to się od razu w 
 metodzie **updateQuality(item, by)**. W tym celu usuwam wszystkie warunki po **if item.sell_in < 0:** oraz
 dla przedmiotu, który jest "conjured" muszę dodać warunek sprawdzający jak zmniejszać jego quality czyli -
 **if item.name.lower().find("conjured") == -1 or item.name.lower().find("conjured") != -1 and item.quality > 0:**  
