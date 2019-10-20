@@ -115,7 +115,7 @@ oraz dodanie testu - **test_add_backstage** sprawdzającego czy wartość zmiany
 Sprawdzanie czy przedmiot jest "normalny":  
 zmiana w liniach:  
 ```python
-	if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" and item.name.lower().find("conjured") == -1:#1
+	if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" and item.name.lower().find("conjured") == -1:
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
 ```
@@ -127,10 +127,37 @@ za pomocą dodanej metody:
 ```python
 class check():    
     def is_normal(item):
-        if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" and item.name.lower().find("conjured") == -1:#1
+        if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" and item.name.lower().find("conjured") == -1:
                 if item.quality > 0:
                     if not check.is_sulfuras(item):
                         return True
                     return False
 ```
 oraz dodanie testu - **test_add_normal** sprawdzającego czy wartość zmiany w "normalnym" przedmiocie  
+**Krok 5:**  
+  
+Zmiana warunku, który obsługuje przedmioty, które nie są "normalne":  
+zmiana w liniach:  
+```python
+	else:
+                if item.quality < 50:
+                    check.updateQuality(item, 1)
+                    if item.quality > 2 and item.name.lower().find("conjured") != -1:
+                            check.updateQuality(item, -3)
+                    check.add_backstage(item)
+```
+na  
+```python
+	if not check.is_normal(item) and item.quality < 50:
+                    check.updateQuality(item, 1)
+                    check.sub_conjured(item, -3, 2)
+                    check.add_backstage(item)
+```
+za pomocą dodanej metody:  
+```python
+class check():    
+	def sub_conjured(item, subber, quality):
+        	if item.quality > quality and item.name.lower().find("conjured") != -1:
+            		check.updateQuality(item, subber)
+```
+oraz dodanie testu - **test_add_not_normal** sprawdzającego czy wartość zmiany w "nienormalnym" przedmiocie  
