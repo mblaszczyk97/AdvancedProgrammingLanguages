@@ -248,7 +248,7 @@ class check():
                         return True
                     return False
 ```
-oraz dodanie testu - **test_add_normal** sprawdzającego czy wartość zmiany w "normalnym" przedmiocie 
+oraz dodanie testu - **test_add_normal** sprawdzającego czy wartość zmiany w "normalnym" przedmiocie uległa poprawnie zmianie 
   
    
 **Krok 5:**  
