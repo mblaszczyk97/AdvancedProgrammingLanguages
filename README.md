@@ -161,3 +161,64 @@ class check():
             		check.updateQuality(item, subber)
 ```
 oraz dodanie testu - **test_add_not_normal** sprawdzającego czy wartość zmiany w "nienormalnym" przedmiocie  
+
+**Krok 6:**  
+  
+Zmiana spsobu odejmowania wartości **sell_in** tak aby była ona odejmowana dla wszystkich po obrocie pętli oraz  
+zamienienie podwojenia zmian wartości **quality* gdy *sell_in* jest mniejsza od 0 tak aby działo to się od razu w 
+metodzie **updateQuality(item, by)**. W tym celu usuwam wszystkie warunki po **if item.sell_in < 0:** oraz
+dla przedmiotu, który jest "conjured" muszę dodać warunek sprawdzający jak zmniejszać jego quality czyli -
+**if item.name.lower().find("conjured") == -1 or item.name.lower().find("conjured") != -1 and item.quality > 0:**  
+zmiana w liniach:  
+```python
+    def update_quality(self):
+        for item in self.items:
+            if check.is_normal(item):
+                check.updateQuality(item, -1)
+            if not check.is_normal(item) and item.quality < 50:
+                    check.updateQuality(item, 1)
+                    check.sub_conjured(item, -3, 2)
+                    check.add_backstage(item)
+            if not check.is_sulfuras(item):
+                check.updateSellin(item, -1)
+            if item.sell_in < 0:
+                if not check.is_aged_brie(item):
+                    if not check.is_backstage(item):
+                        if item.name.lower().find("conjured") != -1 and item.quality > 1:
+                                check.updateQuality(item, -1)
+                        if item.quality > 0:
+                            if not check.is_sulfuras(item):
+                                check.updateQuality(item, -1)
+                    else:
+                        check.updateQuality(item, -item.quality)
+                else:
+                    if item.quality < 50:
+                        check.updateQuality(item, 1)
+```
+na  
+```python
+    def update_quality(self):
+        for item in self.items:
+            if check.is_normal(item):
+                check.updateQuality(item, -1)
+            if not check.is_normal(item) and item.quality < 50:
+                if item.name.lower().find("conjured") == -1 or item.name.lower().find("conjured") != -1 and item.quality > 0:
+                    check.updateQuality(item, 1)
+                check.sub_conjured(item, -3, 2)
+                check.add_backstage(item)
+            if not check.is_sulfuras(item):
+                check.updateSellin(item, -1)
+
+class check():    
+    def updateQuality(item, by):
+        if item.sell_in >0:
+            item.quality = item.quality + by;
+        else:
+            item.quality = item.quality + 2*by;
+        if item.quality <= 0:
+            item.quality=0
+        return item
+```
+oraz dodanie testu - **test_quality_check_conjured** sprawdzającego czy wartość przedmiotu "conjured" jest odpowiednio zmniejszana po  
+osiągnięciu stanu **sell_in** mniejszego od 0
+
