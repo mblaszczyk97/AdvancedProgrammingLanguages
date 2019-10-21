@@ -114,8 +114,7 @@ class GildedRose(object):
   
 Przebieg zmian:  
   
-   
-<span style="color:blue">**Krok 1:**</span>
+**Krok 1:**
   
 Wyciągnięcie linii zmieniającej wartość **quality** przedmiotu w sklepie:  
 zamiana liniach:  
@@ -148,7 +147,6 @@ class check():
         	return item
 ```
 oraz dodanie testu - **test_items_quality_decreases_as_name_suggest** sprawdzającego czy wartość **quality** jest w odpowiedni sposób zmieniana w czasie  
-  
   
 **Krok 2:**  
   
@@ -183,7 +181,6 @@ class check():
            		return True
 ```
 oraz dodanie testu - **test_items_sellin_decreases_as_name_suggest** sprawdzającego czy wartość **sell_in** jest w odpowiedni sposób zmieniana w czasie  
-  
   
 **Krok 3:**  
   
@@ -223,7 +220,6 @@ class check():
                 item.quality = item.quality + 1
 ```
 oraz dodanie testu - **test_add_backstage** sprawdzającego czy wartość zmiany w "concercie" 
-  
    
 **Krok 4:**  
   
@@ -249,7 +245,6 @@ class check():
                     return False
 ```
 oraz dodanie testu - **test_add_normal** sprawdzającego czy wartość zmiany w "normalnym" przedmiocie uległa poprawnie zmianie 
-  
    
 **Krok 5:**  
   
@@ -279,7 +274,6 @@ class check():
 ```
 oraz dodanie testu - **test_add_aged_brie** sprawdzającego wartość zmiany w przedmiocie, który nie jest zaliczany  
 do przedmiotów "normalnych"  
-  
   
 **Krok 6:**  
   
@@ -339,7 +333,6 @@ class check():
         return item
 ```
 oraz dodanie testu - **test_add_conjured** sprawdzającego czy wartość przedmiotu "conjured" jest odpowiednio zmniejszana po osiągnięciu stanu **sell_in** mniejszego od 0
-  
   
 **Krok 7:**  
   
@@ -401,4 +394,3 @@ class check():
                 item.quality = 0
 ```
 oraz dodanie paru testów sprawdzających pozostałe przypadki i sprawność metod
-

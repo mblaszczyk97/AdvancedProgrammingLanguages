@@ -33,17 +33,17 @@ class GildedRoseTest(unittest.TestCase):
 
         gilded_rose = GildedRose(items)
         days = 11
-        iter = 0
+        i = 0
         import sys
         if len(sys.argv) > 1:
             days = int(sys.argv[1]) + 1
         for day in range(days):
             gilded_rose.update_quality()
             arrayOfItems = []
-            iter = iter + 1
+            i = i + 1
             for item in items:
                 arrayOfItems.append(item.quality)
-            self.assertEqual(itemsValues[iter], arrayOfItems)
+            self.assertEqual(itemsValues[i], arrayOfItems)
 
     def test_items_sellin_decreases_as_name_suggest(self):
         items = [
@@ -73,17 +73,17 @@ class GildedRoseTest(unittest.TestCase):
 
         gilded_rose = GildedRose(items)
         days = 11
-        iter = 0
+        i = 0
         import sys
         if len(sys.argv) > 1:
             days = int(sys.argv[1]) + 1
         for day in range(days):
             gilded_rose.update_quality()
             arrayOfItems = []
-            iter = iter + 1
+            i = i + 1
             for item in items:
                 arrayOfItems.append(item.sell_in)
-            self.assertEqual(itemsSellins[iter], arrayOfItems)
+            self.assertEqual(itemsSellins[i], arrayOfItems)
 
     def test_add_backstage(self):
         items = [

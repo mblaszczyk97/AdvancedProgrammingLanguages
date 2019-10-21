@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class check():    
+class check():
     def updateQuality(item, by):
         if item.sell_in >=0:
             item.quality = item.quality + by;
