@@ -277,7 +277,8 @@ class check():
         	if item.quality > quality and item.name.lower().find("conjured") != -1:
             		check.updateQuality(item, subber)
 ```
-oraz dodanie testu - **test_add_not_normal** sprawdzającego czy wartość zmiany w "nienormalnym" przedmiocie  
+oraz dodanie testu - **test_add_aged_brie** sprawdzającego wartość zmiany w przedmiocie, który nie jest zaliczany  
+do przedmiotów "normalnych"  
   
   
 **Krok 6:**  
@@ -337,7 +338,7 @@ class check():
             item.quality=0
         return item
 ```
-oraz dodanie testu - **test_quality_check_conjured** sprawdzającego czy wartość przedmiotu "conjured" jest odpowiednio zmniejszana po osiągnięciu stanu **sell_in** mniejszego od 0
+oraz dodanie testu - **test_add_conjured** sprawdzającego czy wartość przedmiotu "conjured" jest odpowiednio zmniejszana po osiągnięciu stanu **sell_in** mniejszego od 0
   
   
 **Krok 7:**  

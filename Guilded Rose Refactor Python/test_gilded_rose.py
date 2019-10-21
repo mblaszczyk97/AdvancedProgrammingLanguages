@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose
+from gilded_rose import Item, GildedRose, check
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -93,6 +93,89 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual([12,13], [items[0].quality,items[1].quality])
+
+    def test_add_aged_brie(self):
+        items = [
+            Item(name="Aged Brie", sell_in=2, quality=0),
+            Item(name="Aged Brie", sell_in=-1, quality=0),
+            ]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual([1,2], [items[0].quality,items[1].quality])
+
+    def test_add_sulfuras(self):
+        items = [
+            Item(name="Sulfuras, Hand of Ragnaros", sell_in=0, quality=80),
+            Item(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=80),
+            ]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual([80,80], [items[0].quality,items[1].quality])
+
+    def test_add_conjured(self):
+        items = [
+            Item(name="Conjured item3", sell_in=1, quality=10),
+            Item(name="Conjured item4", sell_in=-1, quality=10)
+            ]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual([8,6], [items[0].quality,items[1].quality])
+
+    def test_add_normal(self):
+        items = [
+            Item(name="item1", sell_in=9, quality=10),
+            Item(name="item1", sell_in=-2, quality=10),
+            ]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual([9,8], [items[0].quality,items[1].quality])
+
+    def test_updateQuality(self):
+        item=Item(name="item1", sell_in=9, quality=10)
+        self.assertEqual(9, check.updateQuality(item,-1).quality)
+
+    def test_updateSellIn(self):
+        item=Item(name="item1", sell_in=9, quality=10)
+        self.assertEqual(8, check.updateSellin(item,-1).sell_in)
+
+    def test_items_quality_not_less_zero(self):
+        items = [
+            Item(name="item1", sell_in=9, quality=0),
+            Item(name="item1", sell_in=-2, quality=0),
+            ]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertNotEqual([-1,-2], [items[0].quality,items[1].quality])
+
+    def test_items_checker_normal(self):
+        items = [
+             Item(name="item1", sell_in=10, quality=20),
+             ]
+        self.assertTrue(check.is_normal(items[0]))
+
+    def test_items_checker_aged(self):
+        items = [
+             Item(name="Aged Brie", sell_in=2, quality=0),
+             ]
+        self.assertTrue(check.is_aged_brie(items[0]))
+
+    def test_items_checker_backstage(self):
+        items = [
+             Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
+             ]
+        self.assertTrue(check.is_backstage(items[0]))
+
+    def test_items_checker_sulfuras(self):
+        items = [
+             Item(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=80),
+             ]
+        self.assertTrue(check.is_sulfuras(items[0]))
+
+    def test_items_checker_conjured(self):
+        items = [
+             Item(name="Conjured item3", sell_in=3, quality=12)
+             ]
+        self.assertFalse(check.is_normal(items[0]))
 
 if __name__ == '__main__':
     unittest.main()
