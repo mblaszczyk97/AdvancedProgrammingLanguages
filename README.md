@@ -1,4 +1,4 @@
-Advanced Programming Languages  
+Status projektu według Travis-CI : [![Build Status](https://travis-ci.org/mblaszczyk97/AdvancedProgrammingLanguages.svg?branch=master)](https://travis-ci.org/mblaszczyk97/AdvancedProgrammingLanguages)
   
 Kod zmieniany:
 ```python
@@ -400,5 +400,5 @@ class check():
             if item.sell_in < 0:
                 item.quality = 0
 ```
-oraz dodanie testu - **test_acceptance** sprawdzającego program
+oraz dodanie paru testów sprawdzających pozostałe przypadki i sprawność metod
 
