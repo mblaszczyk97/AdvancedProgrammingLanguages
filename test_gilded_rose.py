@@ -5,8 +5,9 @@ from gilded_rose import Item, GildedRose, check
 
 
 class GildedRoseTest(unittest.TestCase):
-    def test_items_quality_decreases_as_name_suggest(self):
-        items = [
+
+    def setUp(self):
+        self.items = [
              Item(name="item1", sell_in=10, quality=20),
              Item(name="Aged Brie", sell_in=2, quality=0),
              Item(name="item3", sell_in=5, quality=9),
@@ -15,6 +16,8 @@ class GildedRoseTest(unittest.TestCase):
              Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
              Item(name="Conjured item3", sell_in=3, quality=12)
              ]
+
+    def test_items_quality_decreases_as_name_suggest(self): 
 
         itemsValues = [
             [20, 0,	9, 80, 80, 49, 12],
@@ -30,32 +33,21 @@ class GildedRoseTest(unittest.TestCase):
             [10, 18, 0,	80,	80,	50,	0],
             [8,	20,	0, 80, 80, 0, 0],
         ]
-
-        gilded_rose = GildedRose(items)
+        gilded_rose = GildedRose(self.items)
         days = 11
-        i = 0
+        iter = 0
         import sys
         if len(sys.argv) > 1:
             days = int(sys.argv[1]) + 1
         for day in range(days):
             gilded_rose.update_quality()
             arrayOfItems = []
-            i = i + 1
-            for item in items:
+            iter = iter + 1
+            for item in self.items:
                 arrayOfItems.append(item.quality)
-            self.assertEqual(itemsValues[i], arrayOfItems)
+            self.assertEqual(itemsValues[iter], arrayOfItems)
 
     def test_items_sellin_decreases_as_name_suggest(self):
-        items = [
-             Item(name="item1", sell_in=10, quality=20),
-             Item(name="Aged Brie", sell_in=2, quality=0),
-             Item(name="item3", sell_in=5, quality=9),
-             Item(name="Sulfuras, Hand of Ragnaros", sell_in=0, quality=80),
-             Item(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=80),
-             Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
-             Item(name="Conjured item3", sell_in=3, quality=12)
-             ]
-
         itemsSellins = [
             [10, 2,	5, 0, -1, 10, 3],
             [9, 1, 4, 0, -1, 9, 2],
@@ -71,19 +63,19 @@ class GildedRoseTest(unittest.TestCase):
             [-1, -9, -6, 0, -1, -1, -8],
         ]
 
-        gilded_rose = GildedRose(items)
+        gilded_rose = GildedRose(self.items)
         days = 11
-        i = 0
+        iter = 0
         import sys
         if len(sys.argv) > 1:
             days = int(sys.argv[1]) + 1
         for day in range(days):
             gilded_rose.update_quality()
             arrayOfItems = []
-            i = i + 1
-            for item in items:
+            iter = iter + 1
+            for item in self.items:
                 arrayOfItems.append(item.sell_in)
-            self.assertEqual(itemsSellins[i], arrayOfItems)
+            self.assertEqual(itemsSellins[iter], arrayOfItems)
 
     def test_add_backstage(self):
         items = [
@@ -149,31 +141,31 @@ class GildedRoseTest(unittest.TestCase):
 
     def test_items_checker_normal(self):
         items = [
-             Item(name="item1", sell_in=10, quality=20),
+             Item(name="item1", sell_in=1, quality=23),
              ]
         self.assertTrue(check.is_normal(items[0]))
 
     def test_items_checker_aged(self):
         items = [
-             Item(name="Aged Brie", sell_in=2, quality=0),
+             Item(name="Aged Brie", sell_in=1, quality=1),
              ]
         self.assertTrue(check.is_aged_brie(items[0]))
 
     def test_items_checker_backstage(self):
         items = [
-             Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
+             Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=1, quality=1),
              ]
         self.assertTrue(check.is_backstage(items[0]))
 
     def test_items_checker_sulfuras(self):
         items = [
-             Item(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=80),
+             Item(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=1),
              ]
         self.assertTrue(check.is_sulfuras(items[0]))
 
     def test_items_checker_conjured(self):
         items = [
-             Item(name="Conjured item3", sell_in=3, quality=12)
+             Item(name="Conjured item3", sell_in=1, quality=22)
              ]
         self.assertFalse(check.is_normal(items[0]))
 
