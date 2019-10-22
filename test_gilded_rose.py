@@ -33,21 +33,7 @@ class GildedRoseTest(unittest.TestCase):
             [10, 18, 0,	80,	80,	50,	0],
             [8,	20,	0, 80, 80, 0, 0],
         ]
-        gilded_rose = GildedRose(self.items)
-        days = 11
-        iter = 0
-        import sys
-        if len(sys.argv) > 1:
-            days = int(sys.argv[1]) + 1
-        for day in range(days):
-            gilded_rose.update_quality()
-            arrayOfItems = []
-            iter = iter + 1
-            for item in self.items:
-                arrayOfItems.append(item.quality)
-            self.assertEqual(itemsValues[iter], arrayOfItems)
 
-    def test_items_sellin_decreases_as_name_suggest(self):
         itemsSellins = [
             [10, 2,	5, 0, -1, 10, 3],
             [9, 1, 4, 0, -1, 9, 2],
@@ -62,7 +48,6 @@ class GildedRoseTest(unittest.TestCase):
             [0, -8, -5, 0, -1, 0, -7],
             [-1, -9, -6, 0, -1, -1, -8],
         ]
-
         gilded_rose = GildedRose(self.items)
         days = 11
         iter = 0
@@ -71,11 +56,13 @@ class GildedRoseTest(unittest.TestCase):
             days = int(sys.argv[1]) + 1
         for day in range(days):
             gilded_rose.update_quality()
-            arrayOfItems = []
+            arrayOfItemsValues = []
+            arrayOfItemsSellins = []
             iter = iter + 1
             for item in self.items:
-                arrayOfItems.append(item.sell_in)
-            self.assertEqual(itemsSellins[iter], arrayOfItems)
+                arrayOfItemsValues.append(item.quality)
+                arrayOfItemsSellins.append(item.sell_in)
+            self.assertEqual([itemsValues[iter],itemsSellins[iter]], [arrayOfItemsValues,arrayOfItemsSellins])
 
     def test_add_backstage(self):
         items = [
