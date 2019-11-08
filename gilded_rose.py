@@ -1,87 +1,105 @@
-# -*- coding: utf-8 -*-
-class check():
-    def updateQuality(item, by):
-        if item.sell_in >=0:
-            item.quality = item.quality + by;
+class Check():
+    """Class which helps us to check different cases in Item object"""
+    def __init__(self, item):
+        self.item = item
+
+    def updateQuality(self, by):
+        """Updating Quality of one item"""
+        if self.item.sell_in >= 0:
+            self.item.quality = self.item.quality + by
         else:
-            item.quality = item.quality + 2*by;
-        if item.quality < 0:
-            item.quality=0
-        return item
+            self.item.quality = self.item.quality + 2*by
+        if self.item.quality < 0:
+            self.item.quality = 0
+        return self.item
 
-    def updateSellin(item, by):
-        if not check.is_sulfuras(item):
-            item.sell_in = item.sell_in + by;
-        return item
+    def updateSellin(self, by):
+        """Updating Sellin of one item"""
+        if not Check(self.item).is_sulfuras():
+            self.item.sell_in = self.item.sell_in + by
+        return self.item
 
-    def is_sulfuras(item):
-        if item.name == "Sulfuras, Hand of Ragnaros":
-           return True
-        return False
-
-    def is_backstage(item):
-        if item.name == "Backstage passes to a TAFKAL80ETC concert":
+    def is_sulfuras(self):
+        """Bool check for Sulfuras"""
+        if self.item.name == "Sulfuras, Hand of Ragnaros":
             return True
-
-    def is_normal(item):
-        if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" and item.name.lower().find("conjured") == -1:#1
-                if item.quality > 0:
-                    if not check.is_sulfuras(item):
-                        return True
-                    return False
-
-    def is_aged_brie(item):
-        if item.name == "Aged Brie":
-               return True
         return False
 
-    def is_backstage_sellin_less_11(item):
-        if item.sell_in < 11:
-           if item.quality < 50:
-              return True
+    def is_backstage(self):
+        """Bool check for Backstage"""
+        if self.item.name == "Backstage passes to a TAFKAL80ETC concert":
+            return True
+        return False
 
-    def is_backstage_sellin_less_6(item):
-        if item.sell_in < 6:
-            if item.quality < 50:
-               return True
+    def is_normal(self):
+        """Bool check for Normal"""
+        if self.item.name != "Aged Brie" and self.item.name != "Backstage passes to a TAFKAL80ETC concert" and self.item.name.lower().find("conjured") == -1:#1
+            if self.item.quality > 0:
+                if not Check(self.item).is_sulfuras():
+                    return True
+        return False
 
-    def add_backstage(item):
-        if check.is_backstage(item):
-            if check.is_backstage_sellin_less_6(item):
-                check.updateQuality(item, 3)
-            elif check.is_backstage_sellin_less_11(item):
-                check.updateQuality(item, 2)
-            if item.sell_in < 0:
-                item.quality = 0
+    def is_aged_brie(self):
+        """Bool check for Aged Brie"""
+        if self.item.name == "Aged Brie":
+            return True
+        return False
 
-    def sub_conjured(item, subber, quality):
-        if item.quality > quality and item.name.lower().find("conjured") != -1:#2
-            check.updateQuality(item, subber)
+    def is_backstage_sellin_less_11(self):
+        """Bool check for Concert less than 11 sellin"""
+        if self.item.sell_in < 11:
+            if self.item.quality < 50:
+                return True
+        return False
 
-class GildedRose(object):
+    def is_backstage_sellin_less_6(self):
+        """Bool check for Concert less than 6 sellin"""
+        if self.item.sell_in < 6:
+            if self.item.quality < 50:
+                return True
+        return False
 
+    def add_backstage(self):
+        """Changing backstage according to instructions"""
+        if Check(self.item).is_backstage():
+            if Check(self.item).is_backstage_sellin_less_6():
+                Check(self.item).updateQuality(3)
+            elif Check(self.item).is_backstage_sellin_less_11():
+                Check(self.item).updateQuality(2)
+            if self.item.sell_in < 0:
+                self.item.quality = 0
+
+    def sub_conjured(self, subber, quality):
+        """Method for subbing conjured items"""
+        if self.item.quality > quality and self.item.name.lower().find("conjured") != -1:#2
+            Check(self.item).updateQuality(subber)
+
+class GildedRose():
+    """Main Gilded Rose class"""
     def __init__(self, items):
         self.items = items
 
     def update_quality(self):
+        """Method to update every item"""
         for item in self.items:
-            check.updateSellin(item, -1)
-            if check.is_aged_brie(item):
-                check.updateQuality(item, 1)
-            elif check.is_backstage(item):
-                check.add_backstage(item)
-            elif check.is_sulfuras(item):
+            Check(item).updateSellin(-1)
+            if Check(item).is_aged_brie():
+                Check(item).updateQuality(1)
+            elif Check(item).is_backstage():
+                Check(item).add_backstage()
+            elif Check(item).is_sulfuras():
                 item.quality = 80
             else:
-                if check.is_normal(item):
-                    check.updateQuality(item, -1)
+                if Check(item).is_normal():
+                    Check(item).updateQuality(-1)
                 else:
-                    check.updateQuality(item, -2)
-            if item.quality >= 50 and not check.is_sulfuras(item):
+                    Check(item).updateQuality(-2)
+            if item.quality >= 50 and not Check(item).is_sulfuras():
                 item.quality = 50
 
 
 class Item:
+    """Item object class"""
     def __init__(self, name, sell_in, quality):
         self.name = name
         self.sell_in = sell_in
