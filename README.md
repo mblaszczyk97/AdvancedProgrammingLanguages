@@ -120,8 +120,8 @@ Przebieg zmian:
 Wyciągnięcie linii zmieniającej wartość **quality** przedmiotu w sklepie:  
 zamiana liniach:  
 ```python
-       	item.quality = item.quality - 1
-        item.quality = item.quality + 1
+    item.quality = item.quality - 1
+    item.quality = item.quality + 1
 	item.quality = item.quality - 3
 	item.quality = item.quality - item.quality
   
@@ -129,23 +129,24 @@ zamiana liniach:
 ```
 na  
 ```python
-	check.updateQuality(item, -1)  
-	check.updateQuality(item, 1)
-	check.updateQuality(item, -3)  
-	check.updateQuality(item, -item.quality)
+	Updater.update_item_quality(item, -1) 
+	Updater.update_item_quality(item, 1)
+	Updater.update_item_quality(item, -3)
+	Updater.update_item_quality(item, -item.quality)
   
-	check.updateSellin(item, -1)
+	Updater.update_item_sell_in(item, -1)
 ```
 za pomocą dodanych metod:  
 ```python
-class check():    
-	def updateQuality(item, by):
-        	item.quality = item.quality + by;
-        	return item
+class Updater():    
+    def update_item_quality(item, by):
+        item.quality = item.quality + by
+        return item
 
-	def updateSellin(item, by):
-        	item.sell_in = item.sell_in + by;
-        	return item
+    def update_item_sell_in(item, by):
+        item.sell_in = item.sell_in + by
+        return item
+
 ```
 oraz dodanie testu - **test_items_quality_decreases_as_name_suggest** sprawdzającego czy wartość **quality** jest w odpowiedni sposób zmieniana w czasie  
   
@@ -154,32 +155,40 @@ oraz dodanie testu - **test_items_quality_decreases_as_name_suggest** sprawdzaj�
 Stworzenie metod **boolowskich** sprawdzających warunki w "if-ach":  
 zmiana w liniach:  
 ```python
-       	if item.name == "Sulfuras, Hand of Ragnaros":
+	if item.name == "Sulfuras, Hand of Ragnaros":
 	if item.name == "Aged Brie":
 	if item.name == "Backstage passes to a TAFKAL80ETC concert":
+	if if item.name != "Backstage passes to a TAFKAL80ETC concert":
 ```
 na  
 ```python
-	check.is_sulfuras(item) 
-	check.is_aged_brie(item)
-	check.is_backstage(item)
+	if Checker.is_sulfuras(item) 
+	if Checker.is_aged_brie(item)
+	if Checker.is_backstage(item)
+	if Checker.is_conjured(item):
 ```
 za pomocą dodanych metod:  
 ```python
-class check():    
-	def is_sulfuras(item):
-        	if item.name == "Sulfuras, Hand of Ragnaros":
-           		return True
-        	return False
+class Checker():    
+    def is_sulfuras(item):
+        if item.name == "Sulfuras, Hand of Ragnaros":
+            return True
+        return False
 
-	def is_aged_brie(item):
-        	if item.name == "Aged Brie":
-               		return True
-        	return False
+    def is_aged_brie(item):
+        if item.name == "Aged Brie":
+            return True
+        return False
 
-	def is_backstage(item):
-        	if item.name == "Backstage passes to a TAFKAL80ETC concert":
-           		return True
+    def is_backstage(item):
+        if item.name == "Backstage passes to a TAFKAL80ETC concert":
+            return True
+        return False
+
+    def is_conjured(item):
+        if not item.name.lower().find("conjured") == -1:
+            return True
+        return False
 ```
 oraz dodanie testu - **test_items_sellin_decreases_as_name_suggest** sprawdzającego czy wartość **sell_in** jest w odpowiedni sposób zmieniana w czasie  
   

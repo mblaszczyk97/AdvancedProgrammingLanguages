@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose, check
+from gilded_rose import *
 
 
 class GildedRoseTest(unittest.TestCase):
