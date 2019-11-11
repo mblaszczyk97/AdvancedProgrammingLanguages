@@ -61,12 +61,11 @@ class Check():
 
     def add_backstage(self):
         """Changing backstage according to instructions"""
-        if Check(self.item).is_backstage():
-            if Check(self.item).is_backstage_sellin_less_6():
+        if Check(self.item).is_backstage_sellin_less_6():
                 Check(self.item).updateQuality(3)
-            elif Check(self.item).is_backstage_sellin_less_11():
+        elif Check(self.item).is_backstage_sellin_less_11():
                 Check(self.item).updateQuality(2)
-            if self.item.sell_in < 0:
+        if self.item.sell_in < 0:
                 self.item.quality = 0
 
     def sub_conjured(self, subber, quality):
