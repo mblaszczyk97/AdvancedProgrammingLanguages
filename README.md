@@ -1,5 +1,8 @@
 Status projektu według Travis-CI : [![Build Status](https://travis-ci.org/mblaszczyk97/AdvancedProgrammingLanguages.svg?branch=master)](https://travis-ci.org/mblaszczyk97/AdvancedProgrammingLanguages)  
 Ocena kodu według Codacity:	   [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b14e67efc72b42d4909aa6aa502ee8df)](https://www.codacy.com/manual/mblaszczyk97/AdvancedProgrammingLanguages?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mblaszczyk97/AdvancedProgrammingLanguages&amp;utm_campaign=Badge_Grade)
+    
+UWAGA PONIŻSZY DOKUMENT JEST NIEWAŻNY I OBOWIĄZUJE NOWSZA WERSJA DOSTĘPNA W PLIKU:  
+GILDEDROSE.PDF
   
 Kod zmieniany:
 ```python
